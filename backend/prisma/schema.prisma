@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum GameStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  CANCELLED
+  NOT_STARTED
+}
+
+enum PlayerStatus {
+  JOINED
+  LEFT
+  WINNER
+  LOSER
+}
+
+model Player {
+  id    Int     @id @default(autoincrement())
+  name  String
+  score Int     @default(0)
+  status PlayerStatus @default(JOINED)
+  games Game[]
+}
+
+model Game {
+  id        Int     @id @default(autoincrement())
+  name      String    @default("Multiplayer Game")
+  players   Player[]
+  startedAt DateTime?
+  endedAt   DateTime?
+  status    GameStatus @default(NOT_STARTED)
+  roomSize  Int      @default(3)
+}

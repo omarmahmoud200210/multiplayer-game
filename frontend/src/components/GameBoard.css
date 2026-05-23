@@ -1,0 +1,80 @@
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  margin-bottom: 2.5rem;
+}
+
+.score-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  min-width: 120px;
+  text-align: center;
+  border-bottom: 4px solid transparent; /* Colored based on player */
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+.score-name {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.score-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1 / 1;
+}
+
+.game-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-box:hover:not(.claimed) {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.game-box:active:not(.claimed) {
+  transform: scale(0.95);
+}
+
+.game-box.claimed {
+  cursor: not-allowed;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Add a subtle internal glow for claimed boxes */
+.game-box.claimed::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: inherit;
+  filter: brightness(1.5) blur(10px);
+  opacity: 0.5;
+  border-radius: inherit;
+  z-index: -1;
+}
